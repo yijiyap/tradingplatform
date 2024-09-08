@@ -12,6 +12,8 @@ import java.util.Optional;
 public interface OrderService {
     Order createOrder(CreateOrderRequest request);
 
+    Order closeOrder(Long userId, Long orderId);
+
     Order getOrderById(Long id) throws Exception;
 
 }

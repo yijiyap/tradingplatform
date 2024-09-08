@@ -29,6 +29,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     CoinService coinService;
 
+    @Autowired
+    WalletRepository walletRepository;
+
     @Override
     @Transactional
     public Order createOrder(CreateOrderRequest request) {
@@ -42,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = new Order();
         order.setUser(user);
-        order.setCoin(coin);
+        order.setCoinId(coin.getId());
         order.setQuantity(request.getQuantity());
         order.setOrderType(request.getOrderType());
         order.setEntryPrice(request.getEntryPrice());
@@ -57,6 +60,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getOrderById(Long id) throws Exception {
         return orderRepository.findById(id).orElseThrow(() -> new RuntimeException("Order not found!"));
+    }
+
+    @Override
+    @Transactional
+    public Order closeOrder(Long userId, Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("Order not found!"));
+
+        if (order.getStatus() != OrderStatus.FILLED | order.getStatus() != OrderStatus.PARTIALLY_FILLED) {
+            throw new RuntimeException("Only open orders can be closed!");
+        }
+        order.setStatus(OrderStatus.CLOSED);
+
+//        Calculate PnL and update in Order
+
+        return orderRepository.save(order);
     }
 
 }

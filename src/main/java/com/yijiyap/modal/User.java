@@ -35,7 +35,7 @@ public class User {
     private TwoFactorAuth twoFactorAuth = new TwoFactorAuth();
 
     // Default constructor for JPA to use.
-    protected User() {}
+    public User() {}
 
     // To create instances of User to be saved to the database.
     public User(String fullName, String email, String password) {

@@ -11,10 +11,11 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     //    User who made the order
     @ManyToOne
@@ -22,8 +23,7 @@ public class Order {
 
     private double quantity;
 
-    @ManyToOne
-    private Coin coin;
+    private String coinId;
 
     @Column(nullable = false)
     private OrderType orderType;
