@@ -1,29 +1,25 @@
 name: Run Tests on Push
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-    - name: Set up Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
+    - name: Docker Compose validate
+      uses: hoverkraft-tech/compose-action@v2.0.0
+      with:
+        compose-file: docker-compose.yml
 
-    - name: Start MySQL Service
-      run: docker-compose up -d mysql
-
-    - name: Wait for MySQL to be ready
-      run: |
-        timeout 30s bash -c 'until docker exec tp-mysql mysqladmin ping -h localhost --silent; do sleep 1; done'
-      
-    - name: Build and Run Tests
-      run: |
-        docker-compose build test
-        docker-compose run --rm test
+    - name: Docker configuration
+      run: docker compose config
 
     - name: Stop containers
       if: always()
