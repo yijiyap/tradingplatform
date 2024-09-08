@@ -41,6 +41,20 @@ public class OrderController {
             throw new RuntimeException(e);
         }
     }
+    @PostMapping("/{orderId}/fill")
+    public ResponseEntity<OrderResponse> fillOrder(
+            @RequestHeader("Authorization") String jwt,
+            @PathVariable Long orderId) {
+
+        try {
+            User user = userService.findUserProfileByJwt(jwt);
+            Order filledOrder = orderService.fillOrder(user.getId(), orderId);
+            return ResponseEntity.ok(new OrderResponse(filledOrder));
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @PostMapping("/{orderId}/close")
     public ResponseEntity<OrderResponse> closeOrder(
@@ -50,13 +64,12 @@ public class OrderController {
         try {
             User user = userService.findUserProfileByJwt(jwt);
             Order closedOrder = orderService.closeOrder(user.getId(), orderId);
-
             return ResponseEntity.ok(new OrderResponse(closedOrder));
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
     }
-
 
 }

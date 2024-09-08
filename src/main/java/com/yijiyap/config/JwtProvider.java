@@ -30,6 +30,7 @@ public class JwtProvider {
                 .claim("authorities", roles)
                 .signWith(KEY)
                 .compact();
+        System.out.println("JWT:" + jwt);
         return jwt;
     }
 
