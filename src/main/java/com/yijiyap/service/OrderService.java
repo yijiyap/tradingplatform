@@ -1,8 +1,17 @@
 package com.yijiyap.service;
 
-import org.springframework.stereotype.Service;
+import com.yijiyap.domain.OrderType;
+import com.yijiyap.modal.Order;
+import com.yijiyap.modal.User;
+import com.yijiyap.request.CreateOrderRequest;
 
-@Service
-public class OrderService {
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+
+public interface OrderService {
+    Order createOrder(CreateOrderRequest request);
+
+    Order getOrderById(Long id) throws Exception;
 
 }

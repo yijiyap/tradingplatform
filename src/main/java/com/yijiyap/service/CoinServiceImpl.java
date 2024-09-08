@@ -74,40 +74,8 @@ public class CoinServiceImpl implements CoinService {
 
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET,entity, String.class);
 
-            JsonNode jsonNode = objectMapper.readTree(response.getBody());
-
-            Coin coin = new Coin();
-            coin.setId(jsonNode.get("id").asText());
-            coin.setName(jsonNode.get("name").asText());
-            coin.setSymbol(jsonNode.get("symbol").asText());
-            coin.setImage(jsonNode.get("image").asText());
-
-            JsonNode marketData = jsonNode.get("market_data");
-
-            coin.setCurrentPrice(BigDecimal.valueOf(marketData.get("current_price").get("usd").asDouble()));
-            coin.setMarketCap(BigDecimal.valueOf(marketData.get("market_cap").get("usd").asDouble()));
-            coin.setMarketCapRank(marketData.get("market_cap_rank").asInt());
-            coin.setFullyDilutedValuation(BigDecimal.valueOf(marketData.get("fully_diluted_valuation").get("usd").asDouble()));
-            coin.setTotalVolume(BigDecimal.valueOf(marketData.get("total_volume").get("usd").asDouble()));
-
-            coin.setHigh24h(BigDecimal.valueOf(marketData.get("high_24h").get("usd").asDouble()));
-            coin.setLow24h(BigDecimal.valueOf(marketData.get("low_24h").get("usd").asDouble()));
-            coin.setPriceChange24h(BigDecimal.valueOf(marketData.get("price_change_24h").asDouble()));
-            coin.setPriceChangePercentage24h(marketData.get("price_change_percentage_24h").asDouble());
-            coin.setMarketCapChange24h(BigDecimal.valueOf(marketData.get("market_cap_change_24h").asDouble()));
-            coin.setMarketCapChangePercentage24h(marketData.get("market_cap_change_percentage_24h").asDouble());
-
-            coin.setCirculatingSupply(BigDecimal.valueOf(marketData.get("circulating_supply").asDouble()));
-            coin.setTotalSupply(BigDecimal.valueOf(marketData.get("total_supply").asDouble()));
-            coin.setMaxSupply(BigDecimal.valueOf(marketData.get("max_supply").asDouble()));
-            coin.setAth(BigDecimal.valueOf(marketData.get("ath").get("usd").asDouble()));
-
             return response.getBody();
         } catch (HttpClientErrorException e) {
-            throw new RuntimeException(e);
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
-        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
@@ -163,6 +131,56 @@ public class CoinServiceImpl implements CoinService {
             return response.getBody();
         } catch (HttpClientErrorException e) {
             throw new IllegalStateException("Failed to fetch trending coins.", e);
+        }
+    }
+
+    @Override
+    public Coin getCoinById(String coinId) {
+        String url = "https://api.coingecko.com/api/v3/coins/" + coinId;
+        RestTemplate restTemplate = new RestTemplate();
+
+        try {
+            HttpHeaders headers = new HttpHeaders();
+
+            HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET,entity, String.class);
+
+            JsonNode jsonNode = objectMapper.readTree(response.getBody());
+
+            Coin coin = new Coin();
+            coin.setId(jsonNode.get("id").asText());
+            coin.setName(jsonNode.get("name").asText());
+            coin.setSymbol(jsonNode.get("symbol").asText());
+            coin.setImage(jsonNode.get("image").asText());
+
+            JsonNode marketData = jsonNode.get("market_data");
+
+            coin.setCurrentPrice(BigDecimal.valueOf(marketData.get("current_price").get("usd").asDouble()));
+            coin.setMarketCap(BigDecimal.valueOf(marketData.get("market_cap").get("usd").asDouble()));
+            coin.setMarketCapRank(marketData.get("market_cap_rank").asInt());
+            coin.setFullyDilutedValuation(BigDecimal.valueOf(marketData.get("fully_diluted_valuation").get("usd").asDouble()));
+            coin.setTotalVolume(BigDecimal.valueOf(marketData.get("total_volume").get("usd").asDouble()));
+
+            coin.setHigh24h(BigDecimal.valueOf(marketData.get("high_24h").get("usd").asDouble()));
+            coin.setLow24h(BigDecimal.valueOf(marketData.get("low_24h").get("usd").asDouble()));
+            coin.setPriceChange24h(BigDecimal.valueOf(marketData.get("price_change_24h").asDouble()));
+            coin.setPriceChangePercentage24h(marketData.get("price_change_percentage_24h").asDouble());
+            coin.setMarketCapChange24h(BigDecimal.valueOf(marketData.get("market_cap_change_24h").asDouble()));
+            coin.setMarketCapChangePercentage24h(marketData.get("market_cap_change_percentage_24h").asDouble());
+
+            coin.setCirculatingSupply(BigDecimal.valueOf(marketData.get("circulating_supply").asDouble()));
+            coin.setTotalSupply(BigDecimal.valueOf(marketData.get("total_supply").asDouble()));
+            coin.setMaxSupply(BigDecimal.valueOf(marketData.get("max_supply").asDouble()));
+            coin.setAth(BigDecimal.valueOf(marketData.get("ath").get("usd").asDouble()));
+
+            return coin;
+        } catch (HttpClientErrorException e) {
+            throw new RuntimeException(e);
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 }
