@@ -34,13 +34,10 @@ Request body:
 }
 ```
 
-## Orders Service
-### Get pending orders
-GET: `/api/orders/pending`
-
+## Order Service
 ### Place order
-POST: `POST: /api/orders/place`
+POST: `/api/order/place`
 
 ### Close order
-POST: `/api/orders/{orderId}/close`
+POST: `/api/order/{orderId}/close`
 
