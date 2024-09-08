@@ -21,15 +21,16 @@ GET: `/coins/{coinId}`
 GET: `/coins/trending`
 
 ## Wallet Service
-GET: `/api/wallet/balance`
+### View Balance
+GET: `/api/wallet`
 
-## Update Wallet Balance
-POST: `/api/wallet/update`
+### Update Wallet Balance
+POST: `/api/wallet/deposit`
+POST: `/api/wallet/withdraw`
 Request body:
 ```
 {
 "amount": "number",
-"transactionType": "string" // "DEPOSIT" or "WITHDRAWAL"
 }
 ```
 
