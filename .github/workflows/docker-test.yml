@@ -1,11 +1,30 @@
-name: Docker Compose Actions Workflow
-on: push
+name: Run Tests on Push
+
+on: [push]
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Build the stack
-        run: docker compose up --build -d
-      - name: Test
-        run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+    - uses: actions/checkout@v3
+
+    - name: Set up Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+
+    - name: Start MySQL Service
+      run: docker-compose up -d mysql
+
+    - name: Wait for MySQL to be ready
+      run: |
+        timeout 30s bash -c 'until docker exec tp-mysql mysqladmin ping -h localhost --silent; do sleep 1; done'
+      
+    - name: Build and Run Tests
+      run: |
+        docker-compose build test
+        docker-compose run --rm test
+
+    - name: Stop containers
+      if: always()
+      run: docker-compose down
