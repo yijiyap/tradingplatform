@@ -1,0 +1,10 @@
+### GET request to example server
+POST http://localhost:8080/api/order/1/fill
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjU4MDA5NjksImV4cCI6MTcyNTg4NzM2OSwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiYXV0aG9yaXRpZXMiOiIifQ.hBVitj0wXRYFPtYYa2KDmwUO0B9A3imZwthGLpImYKk
+
+<> 2024-09-08T220502.500.json
+<> 2024-09-08T220457.200.json
+<> 2024-09-08T211227.500.json
+
+###

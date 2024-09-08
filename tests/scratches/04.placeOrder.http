@@ -1,0 +1,22 @@
+### GET request to example server
+POST http://localhost:8080/api/order/place
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MjU4MDA5NjksImV4cCI6MTcyNTg4NzM2OSwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiYXV0aG9yaXRpZXMiOiIifQ.hBVitj0wXRYFPtYYa2KDmwUO0B9A3imZwthGLpImYKk
+
+{
+  "coinId": "BTC",
+  "quantity": 1,
+  "orderType": "BUY_LIMIT",
+  "entryPrice": 10.00,
+  "takeProfitPrice": 15.00,
+  "stopLossPrice": 8.00
+}
+
+<> 2024-09-08T220452.200.json
+<> 2024-09-08T211004.200.json
+<> 2024-09-08T211002.200.json
+<> 2024-09-08T210953.200.json
+<> 2024-09-08T210847.200.json
+<> 2024-09-08T210019.500.json
+
+###

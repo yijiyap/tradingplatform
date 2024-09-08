@@ -1,0 +1,24 @@
+### GET request to example server
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "fullName": "Test Test",
+  "email": "test@test.com",
+  "password": "test@test.com"
+}
+
+<> 2024-09-08T220443.200.json
+<> 2024-09-08T210929.200.json
+<> 2024-09-08T210842.200.json
+<> 2024-09-08T210824.401.json
+<> 2024-09-08T205303.200.json
+<> 2024-09-08T204518.200.json
+<> 2024-09-07T013704.200.json
+<> 2024-09-07T013638.401.json
+<> 2024-09-07T004539.200.json
+<> 2024-09-07T004534.401.json
+<> 2024-09-07T004528.200.json
+<> 2024-09-07T004527.200.json
+
+###

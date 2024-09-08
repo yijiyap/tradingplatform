@@ -1,0 +1,10 @@
+### GET request to example server
+GET http://localhost:8080/coins?page=1
+
+<> 2024-09-07T013630.200.json
+<> 2024-09-07T010030.500.json
+<> 2024-09-07T010023.200.json
+<> 2024-09-06T234647.202.json
+<> 2024-09-06T234210.500.json
+<> 2024-09-06T234132.400.json
+###

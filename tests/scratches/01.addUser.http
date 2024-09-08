@@ -1,0 +1,30 @@
+### POST request to example server
+# @no-cookie-jar
+POST http://localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+    "fullName":"Test Test",
+    "email": "test@test.com",
+    "password": "test@test.com",
+    "mobile": "1234"
+}
+
+<> 2024-09-08T220438.201.json
+<> 2024-09-08T210839.201.json
+<> 2024-09-08T205258.201.json
+<> 2024-09-08T204508.201.json
+<> 2024-09-07T013653.409.json
+<> 2024-09-07T013647.201.json
+<> 2024-09-07T004522.409.json
+<> 2024-09-07T004519.201.json
+<> 2024-09-07T004505.409.json
+<> 2024-09-07T004453.201.json
+<> 2024-09-06T003734.409.json
+<> 2024-09-06T003732.201.json
+<> 2024-09-06T003724.409.json
+<> 2024-09-06T003722.201.json
+<> 2024-09-06T002409.201.json
+<> 2024-09-06T002401.201.json
+
+###
